@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Message Encryption Tool</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>🔐 Message Encryption & Decryption</h1>
+
+    <div class="container">
+
+        <!-- Left Box -->
+        <textarea id="inputText" placeholder="Enter your message here..."></textarea>
+
+        <!-- Buttons -->
+        <div class="buttons">
+            <button onclick="encrypt()">Encrypt ➡️</button>
+            <button onclick="decrypt()">⬅️ Decrypt</button>
+        </div>
+
+        <!-- Right Box -->
+        <textarea id="outputText" placeholder="Result will appear here..." readonly></textarea>
+
+    </div>
+
+    <!-- JS -->
+    <script src="script.js"></script>
+</body>
+</html>
