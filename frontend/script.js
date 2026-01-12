@@ -1,64 +1,27 @@
-const API_URL = "http://localhost:8080/api/crypto";
+const API = "http://localhost:8080/api/crypto";
 
-function encrypt() {
-    const input = document.getElementById("inputText").value;
+async function encryptMessage() {
+    const message = document.getElementById("inputBox").value;
 
-    if(!input.trim()){
-        showToast("Please enter a message!!", "error");
-        return;
-    }
-
-    fetch(API_URL + "/encrypt", {
+    const res = await fetch(`${API}/encrypt`, {
         method: "POST",
-        headers: {
-            "Content-Type": "text/plain"
-        },
-        body: input
-    })
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById("outputText").value = data;
-        showToast("Message encrypted successfully!", "success");
-    })
-    .catch(() => {
-        showToast("Encryption failed!", "error");
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message })
     });
+
+    const cipher = await res.text();
+    document.getElementById("outputBox").value = cipher;
 }
 
-function decrypt() {
-    const input = document.getElementById("inputText").value;
+async function decryptMessage() {
+    const cipher = document.getElementById("outputBox").value;
 
-     if(!input.trim()){
-        showToast("Please enter a message!!", "error");
-        return;
-     }
-
-    fetch(API_URL + "/decrypt", {
+    const res = await fetch(`${API}/decrypt`, {
         method: "POST",
-        headers: {
-            "Content-Type": "text/plain"
-        },
-        body: input
-    })
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById("outputText").value = data;
-        showToast("Message decrypted successfully!", "success");
-    })
-    .catch(() => {
-        showToast("decryption failed!", "error");
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: cipher })
     });
-}
-function showToast(message, type = "success") {
-    const container = document.getElementById("toastContainer");
 
-    const toast = document.createElement("div");
-    toast.classList.add("toast", type);
-    toast.textContent = message;
-
-    container.appendChild(toast);
-
-    setTimeout(() => {
-        toast.remove();
-    }, 3500);
+    const plain = await res.text();
+    document.getElementById("inputBox").value = plain;
 }

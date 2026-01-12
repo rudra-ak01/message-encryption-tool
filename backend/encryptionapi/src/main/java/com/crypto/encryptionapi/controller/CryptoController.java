@@ -15,12 +15,12 @@ public class CryptoController {
     }
 
     @PostMapping("/encrypt")
-    public String encrypt(@RequestBody String message) {
+    public String encrypt(@RequestBody String message) throws Exception {
         return cryptoService.encrypt(message);
     }
 
     @PostMapping("/decrypt")
-    public String decrypt(@RequestBody String message) {
+    public String decrypt(@RequestBody String message) throws Exception {
         return cryptoService.decrypt(message);
     }
 }
