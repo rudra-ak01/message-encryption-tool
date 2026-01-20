@@ -1,8 +1,7 @@
 # 🔐 Message Encryption & Decryption Tool
 
 A full-stack web application that encrypts and decrypts messages.  
-Current cipher: **Caesar Cipher (Shift 3)**  
-Upcoming upgrade: **AES Encryption + Modern UI**
+Current cipher: **AES Encryption + Modern UI**
 
 ---
 
