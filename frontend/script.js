@@ -1,7 +1,7 @@
 const API = "http://localhost:8080/api/crypto";
 
 async function encryptMessage() {
-    const message = document.getElementById("inputBox").value;
+    const message = document.getElementById("inputText").value;
 
     const res = await fetch(`${API}/encrypt`, {
         method: "POST",
@@ -10,11 +10,11 @@ async function encryptMessage() {
     });
 
     const cipher = await res.text();
-    document.getElementById("outputBox").value = cipher;
+    document.getElementById("outputText").value = cipher;
 }
 
 async function decryptMessage() {
-    const cipher = document.getElementById("outputBox").value;
+    const cipher = document.getElementById("outputText").value;
 
     const res = await fetch(`${API}/decrypt`, {
         method: "POST",
@@ -23,5 +23,5 @@ async function decryptMessage() {
     });
 
     const plain = await res.text();
-    document.getElementById("inputBox").value = plain;
+    document.getElementById("inputText").value = plain;
 }

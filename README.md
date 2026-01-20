@@ -23,28 +23,6 @@ Two stylish boxes → buttons in the center → attractive gradient background.
 
 ---
 
-## 📁 Project Structure
-```
-message-encryption-tool/
-│
-├── backend/
-│   └── encryption-api/
-│       ├── pom.xml
-│       └── src/main/java/com/crypto/encryptionapi/
-│           ├── EncryptionApiApplication.java
-│           ├── controller/CryptoController.java
-│           └── service/CryptoService.java
-│
-├── frontend/
-│   ├── index.html
-│   ├── style.css
-│   └── script.js
-│
-└── README.md
-```
-
----
-
 ## ▶️ How to Run
 
 ### 1️⃣ Start Backend
