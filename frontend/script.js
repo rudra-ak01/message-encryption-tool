@@ -18,7 +18,7 @@ async function decryptMessage() {
 
     const res = await fetch(`${API}/decrypt`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "text/plain" },
         body: JSON.stringify({ message: cipher })
     });
 

@@ -21,6 +21,8 @@ public class CryptoController {
 
     @PostMapping("/decrypt")
     public String decrypt(@RequestBody String message) throws Exception {
+        System.out.println("RAW MESSAGE >>>[" + message + "]<<<");
+        System.out.println("LENGTH >>> " + message.length());
         return cryptoService.decrypt(message);
     }
 }
