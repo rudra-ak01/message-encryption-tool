@@ -1,6 +1,9 @@
 package com.crypto.encryptionapi.controller;
 
 import com.crypto.encryptionapi.service.CryptoService;
+
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,9 +23,8 @@ public class CryptoController {
     }
 
     @PostMapping("/decrypt")
-    public String decrypt(@RequestBody String message) throws Exception {
-        System.out.println("RAW MESSAGE >>>[" + message + "]<<<");
-        System.out.println("LENGTH >>> " + message.length());
-        return cryptoService.decrypt(message);
+    public String decrypt(@RequestBody Map<String, String> body) {
+        String cipher = body.get("message");
+        return cryptoService.decrypt(cipher);
     }
-}
+}    

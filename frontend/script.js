@@ -18,10 +18,10 @@ async function decryptMessage() {
 
     const res = await fetch(`${API}/decrypt`, {
         method: "POST",
-        headers: { "Content-Type": "text/plain" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: cipher })
     });
-
+console.log(res);
     const plain = await res.text();
     document.getElementById("inputText").value = plain;
 }

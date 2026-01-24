@@ -12,6 +12,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.Base64;
 
 @Service
@@ -50,49 +51,21 @@ public class CryptoService {
         return Base64.getEncoder().encodeToString(encryptedWithIV);
     }
 
+    //Decrypt with AES
     public String decrypt(String cipherText) {
-
-    if (cipherText == null || cipherText.isBlank()) {
-        throw new ResponseStatusException(
-            HttpStatus.BAD_REQUEST, "cipherText is required"
-        );
-    }
-
     try {
-
         byte[] decoded = Base64.getDecoder().decode(cipherText.trim());
 
-        if (decoded.length <= 16) {
-            throw new ResponseStatusException(
-                HttpStatus.BAD_REQUEST, "Invalid encrypted payload"
-            );
-        }
-
-        byte[] iv = new byte[16];
-        byte[] encrypted = new byte[decoded.length - 16];
-
-        System.arraycopy(decoded, 0, iv, 0, 16);
-        System.arraycopy(decoded, 16, encrypted, 0, encrypted.length);
+        byte[] iv = Arrays.copyOfRange(decoded, 0, 16);
+        byte[] encrypted = Arrays.copyOfRange(decoded, 16, decoded.length);
 
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-        cipher.init(
-            Cipher.DECRYPT_MODE,
-            getSecretKey(),
-            new IvParameterSpec(iv)
-        );
+        cipher.init(Cipher.DECRYPT_MODE, getSecretKey(), new IvParameterSpec(iv));
 
-        byte[] decrypted = cipher.doFinal(encrypted);
-        return new String(decrypted, StandardCharsets.UTF_8);
-
-    } catch (IllegalArgumentException e) {
-        throw new ResponseStatusException(
-            HttpStatus.BAD_REQUEST, "Invalid Base64 input"
-        );
+        return new String(cipher.doFinal(encrypted), StandardCharsets.UTF_8);
     } catch (Exception e) {
-        throw new ResponseStatusException(
-            HttpStatus.BAD_REQUEST, "Decryption failed"
-        );
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Decryption failed", e);
     }
 }
-}
+   }
 
